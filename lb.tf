@@ -10,7 +10,7 @@ resource "aws_lb_target_group" "external-elb" {
   name     = "ALB-TG"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = aws_vpc.demovpc.id
+  vpc_id   = aws_vpc.tf-vpc.id
 }
 
 resource "aws_lb_target_group_attachment" "external-elb1" {
