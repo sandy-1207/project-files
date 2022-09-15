@@ -10,26 +10,26 @@ resource "aws_lb_target_group" "external-elb" {
   name     = "ALB-TG"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = aws_vpc.tf-vpc.id
+  vpc_id   = aws_vpc.demovpc.id
 }
 
 resource "aws_lb_target_group_attachment" "external-elb1" {
-  target_group_arn = aws_lb_target_group.external-elb.arn
-  target_id        = aws_instance.ecomm.id
-  port             = 80
-
-  depends_on = [
-    aws_instance.ecomm,
-  ]
-}
-
-resource "aws_lb_target_group_attachment" "external-elb2" {
   target_group_arn = aws_lb_target_group.external-elb.arn
   target_id        = aws_instance.food.id
   port             = 80
 
   depends_on = [
     aws_instance.food,
+  ]
+}
+
+resource "aws_lb_target_group_attachment" "external-elb2" {
+  target_group_arn = aws_lb_target_group.external-elb.arn
+  target_id        = aws_instance.ecomm.id
+  port             = 80
+
+  depends_on = [
+    aws_instance.ecomm,
   ]
 }
 
