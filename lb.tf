@@ -6,7 +6,7 @@ resource "aws_lb" "external-elb" {
   subnets            = [aws_subnet.tf-sn-1.id, aws_subnet.tf-sn-2.id]
 }
 
-resource "aws_lb_target_group" "external-elb" {
+resource "aws_lb_target_group" "target-elb" {
   name     = "ALB-TG"
   port     = 80
   protocol = "HTTP"
@@ -14,7 +14,7 @@ resource "aws_lb_target_group" "external-elb" {
 }
 
 resource "aws_lb_target_group_attachment" "external-elb1" {
-  target_group_arn = aws_lb_target_group.external-elb.arn
+  target_group_arn = aws_lb_target_group.target-elb.arn
   target_id        = aws_instance.food.id
   port             = 80
 
@@ -24,7 +24,7 @@ resource "aws_lb_target_group_attachment" "external-elb1" {
 }
 
 resource "aws_lb_target_group_attachment" "external-elb2" {
-  target_group_arn = aws_lb_target_group.external-elb.arn
+  target_group_arn = aws_lb_target_group.target-elb.arn
   target_id        = aws_instance.ecomm.id
   port             = 80
 
@@ -40,6 +40,6 @@ resource "aws_lb_listener" "external-elb" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.external-elb.arn
+    target_group_arn = aws_lb_target_group.target-elb.arn
   }
 }
